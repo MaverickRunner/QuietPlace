@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mybatis.board">
+	<!-- 게시물 작성 -->
+	<insert id="write" parameterType="com.board.model.Board">
+		insert into
+			board(title , content , writer)
+				values(#{title} , #{content} , #{writer})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int" resultType="com.board.model.Board">
+		select
+			bno , title , content , writer , regDate , viewCnt
+		from
+			board
+		where
+			bno = #{bno}
+	</select>
+	
+	<!-- 게시물 수정 -->
+	<update id="modify" parameterType="com.board.model.Board">
+		update board
+			set
+				title = #{title} ,
+				content = #{content} ,
+				writer = #{bno}
+			where bno = #{bno}
+	</update>
+	
+	<delete id="delete" parameterType="com.board.model.Board">
+		delete from board where bno = #{bno}
+	</delete>
+	
+	<!-- 게시물 총 갯수  -->
+	<select id="count" resultType="int">
+		select count(bno) from board
+	</select>
+	
+	<!-- 게시물 목록 + 페이징 -->
+	<select id="listPage" parameterType="hashMap" resultType="com.board.model.Board">
+		select
+			bno , title , content , writer , regDate , viewCnt
+		from
+			board
+		order by bno desc
+			limit #{displayPost} , #{postNum}
+	</select>
+	
+	<!-- 게시물 목록 + 페이징 + 검색 -->
+	<!-- 테이블 앞에 데이터 베이스명을 입력.
+		데이터베이스만 이용한다면, root-context.xml에서 접속주소
+		<property name="url" value="jdbc:mariadb://127.0.0.1:3306" />에
+		<property name="url" value="jdbc:mariadb://127.0.0.1:3306/(데이터베이스 이름)" /> 
+		을 적어놓으면 퀴리문에 안적어도된다-->
+	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.model.Board">
+	 select
+	  bno, title, writer, regDate, viewCnt
+	 from board
+	 
+	 <if test='searchType.equals("title")'>
+	  WHERE title LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 <if test='searchType.equals("content")'>
+	  WHERE content LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 <if test='searchType.equals("title_content")'>
+	  WHERE title LIKE concat('%', #{keyword}, '%') 
+	   or content LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 <if test='searchType.equals("writer")'>
+	  WHERE writer LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 order by bno desc
+	  limit #{displayPost}, #{postNum}
+	</select> 
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="searchCount" parameterType="hashMap" resultType="int">
+	 select count(bno) from board  
+	  
+	 <if test='searchType.equals("title")'>
+	  WHERE title LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 <if test='searchType.equals("content")'>
+	  WHERE content LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 <if test='searchType.equals("title_content")'>
+	  WHERE title LIKE concat('%', #{keyword}, '%') 
+	   or content LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	 <if test='searchType.equals("writer")'>
+	  WHERE writer LIKE concat('%', #{keyword}, '%')
+	 </if>
+	 
+	</select>
+	
+	
+</mapper>
