@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알아보다</title>
+    <title>찾아보다</title>
     <script src="/resources/js/main.js" defer></script>
     <link rel="stylesheet" type="text/css" href="resources/css/find.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/resources/css/font/font.css" type="text/css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fc21bbf49e86de28768127d7c7310c63"></script>
 <script>
+window.onload = function() {
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
 		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
@@ -22,6 +23,7 @@
 	};
 	
 	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+}
 
 </script>
 </head>

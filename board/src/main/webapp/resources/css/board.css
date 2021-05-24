@@ -17,6 +17,10 @@ body {
 a{
     text-decoration: none ! important; 
 }
+a:hover{
+    text-decoration: none ! important; 
+    color: white ! important;
+}
 
 dl, ol, ul {
     margin-top: revert !important;
@@ -86,11 +90,25 @@ dl, ol, ul {
     font-size: 24px;
     color: var(--icons-color);
 }
-.write_fall {
+.write_fail {
 	text-align: center;
 	font-size: 28px;
 	font-weight: bold;
 }
+.writer_wrap {
+    width: 1500px;
+    margin: auto;
+    height: 30px;
+    text-align: left;
+}
+.writer_name {
+	border: none;
+}
+.button_wrap {
+	text-align: center;
+	padding-top: 8px;
+}
+
 
 @media screen and (max-width: 768px) {
     .navbar {
@@ -128,10 +146,51 @@ dl, ol, ul {
 
 .board_wrap{
 	text-align: center;
+	width: 1500px;
+	margin: auto;
 }
 
 .mb-3 {
     padding-top: 100px;
+}
+
+.board_active_btn_wrap {
+	width: 1500px;
+	margin: auto;
+	height: 50px;
+}
+#board_page_btn {
+    float: left;
+}
+
+#board_write_btn {
+	float: right;
+}
+
+/* view부분 css처리 */
+.board_view_wrap {
+	width: 1500px;
+	margin: auto;
+	height: 700px;
+}
+
+.board_main_title {
+    padding-top: 15px;
+}
+
+.board_board_name {
+    padding-top: 50px;
+    font-size: 28px;
+    font-weight: bold;
+    padding-bottom: 20px;
+    border-bottom: rgb(238, 81, 81) 1px solid;
+}
+
+.board_board_content {
+	height: 300px;
+}
+#view_page_btn {
+	float: right;
 }
 
 @media screen and (max-width: 768px) {

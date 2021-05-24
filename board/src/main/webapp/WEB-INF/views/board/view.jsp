@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar_logo">
-            <a href="/index.html">
+            <a href="/">
                 <i class="fab fa-slideshare fa-2x"></i>
                 <span>
                     QuietPlace    
@@ -30,7 +30,7 @@
         <ul class="navbar_menu">
             <li><a href="/about">알아보다</a></li>
             <li><a href="/board/listPageSearch?num=1">소통하다</a></li>
-            <li><a href="">찾아보다</a></li>
+            <li><a href="/find">찾아보다</a></li>
             <li><a href="">공지사항</a></li>
         </ul>
         <ul class="navbar_icons">
@@ -47,59 +47,72 @@
             <i class="fas fa-bars"></i>
         </a>
     </nav>
-
+<!--  
 <div id = "nav">
 	<%@ include file = "../include/nav.jsp" %>
 </div>
+-->
+<div class="board_view_wrap">
+	<div class="board_board_name">
+		소통하다
+	</div>
 
-<label>제목</label>
-${view.title}<br />
-
-<label>작성자</label>
-${view.writer}<br />
-
-<label>내용</label><br />
-${view.content}<br />
-
-<div>
-	<a href="/board/modify?bno=${ view.bno }">게시물 수정</a> , <a href="/board/delete?bno=${ view.bno }">게시물 삭제</a>
+	<div class="board_main_title">
+		<h5>${view.title}</h5> 
+		${view.writer}
+	</div>
+	
+	<hr>
+	
+	<div class="board_board_content">
+		${view.content}
+	</div>
+	
+	<div>
+		<a href="/board/modify?bno=${ view.bno }">게시물 수정</a> , <a href="/board/delete?bno=${ view.bno }">게시물 삭제</a>
+	</div>
+	
+	<!-- 댓글 시작 -->
+	
+	<hr / style="color: blue;">
+	<div class="board_active_btn_wrap">
+		<button id="board_page_btn" type="submit" class="btn btn-danger" onclick="location.href = '/board/listPageSearch?num=1'">글목록</button>
+		
+		<button id="view_page_btn" type="submit" class="btn btn-primary" onclick="location.href = '/board/modify?bno=${ view.bno }'">게시물 수정</button>
+		<button id="view_page_btn" type="submit" class="btn btn-primary" onclick="location.href = '/board/delete?bno=${ view.bno }'">게시물 삭제</button>
+	</div>
+	<ul>
+	    <c:forEach items="${reply}" var="reply">
+	    
+		<li>
+		    <div>
+		        <p>${reply.writer} /<fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd" /></p>
+		        <p>${reply.content }</p>
+		    </div>
+		    <div>
+		    	<a href="/reply/replyModify">수정</a>
+		    </div>
+		</li>    
+		</c:forEach>
+	    
+	</ul>
+	<div>
+	    <form method="post" action="/reply/write">
+	    
+	        <p>
+	            <label>댓글 작성자</label> <input type="text" name="writer">
+	        </p>
+	        <p>
+	            <textarea rows="5" cols="50" name="content"></textarea>
+	        </p>
+	        <p>
+	      		<input type="hidden" name="bno" value="${view.bno}">
+	            <button type="submit">댓글 작성</button>
+	        </p>
+	    </form>
+	
+	</div>
+	<!-- 댓글 끝 -->
 </div>
-
-<!-- 댓글 시작 -->
-
-<hr />
-
-<ul>
-    <c:forEach items="${reply}" var="reply">
-    
-	<li>
-	    <div>
-	        <p>${reply.writer} /<fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd" /></p>
-	        <p>${reply.content }</p>
-	    </div>
-	    <div>
-	    	<a href="/reply/replyModify">수정</a>
-	    </div>
-	</li>    
-	</c:forEach>
-    
-</ul>
-<div>
-    <form method="post" action="/reply/write">
-    
-        <p>
-            <label>댓글 작성자</label> <input type="text" name="writer">
-        </p>
-        <p>
-            <textarea rows="5" cols="50" name="content"></textarea>
-        </p>
-        <p>
-      		<input type="hidden" name="bno" value="${view.bno}">
-            <button type="submit">댓글 작성</button>
-        </p>
-    </form>
-
-</div>
-<!-- 댓글 끝 -->
 </body>
 </html>

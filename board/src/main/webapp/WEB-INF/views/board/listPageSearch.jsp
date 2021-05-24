@@ -30,7 +30,7 @@
          <ul class="navbar_menu">
             <li><a href="/about">알아보다</a></li>
             <li><a href="/board/listPageSearch?num=1">소통하다</a></li>
-            <li><a href="">찾아보다</a></li>
+            <li><a href="/find">찾아보다</a></li>
             <li><a href="">공지사항</a></li>
         </ul>
         <ul class="navbar_icons">
@@ -80,7 +80,10 @@
 		</c:forEach>
 	</tbody>
 </table>
-
+<div class="board_active_btn_wrap">
+	<button id="board_page_btn" type="submit" class="btn btn-danger" onclick="location.href = '/board/listPageSearch?num=1'">글목록</button>
+	<button id="board_write_btn" type="submit" class="btn btn-primary" onclick="location.href = '/board/write'">글쓰기</button>
+</div>
 <div>
 	
 <c:if test="${page.prev}">
@@ -116,10 +119,8 @@
 	 
 	 <button class="btn btn-danger" type="button" id="searchBtn">검색</button>
 	</div>
-	<div style="color = black;">
-		<a href="/board/write" >글쓰기</a>
-		<a href="/board/listPageSearch?num=1">글목록</a>
-	</div>
+	
+	
 	
 	<script>
 
@@ -137,5 +138,7 @@
 	
 </div>
 </div>
+	
+
 </body>
 </html>
